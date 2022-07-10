@@ -5,15 +5,68 @@ import womanSvg from "./assets/woman.svg";
 import manAgeSvg from "./assets/growing-up-man.svg";
 import womanAgeSvg from "./assets/growing-up-woman.svg";
 import mapSvg from "./assets/map.svg";
+import loadingGif from "./assets/loading.gif";
 import phoneSvg from "./assets/phone.svg";
 import padlockSvg from "./assets/padlock.svg";
 import cwSvg from "./assets/cw.svg";
 import Footer from "./components/footer/Footer";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const url = "https://randomuser.me/api/";
 const defaultImage = "https://randomuser.me/api/portraits/men/75.jpg";
 
 function App() {
+  const [isData, setIsData] = useState({});
+  const [isShow, setIsShow] = useState(true);
+  const [show, setShow] = useState(false);
+
+  // const [info, setInfo] = useState({
+  //   title: "",
+  //   first: "",
+  //   last: "",
+  //   email: "",
+  //   age: "",
+  //   country: "",
+  //   cell: "",
+  //   gender: "",
+  // });
+
+  const getData = async () => {
+    try {
+      const res = await axios(url);
+      const data = await res.data.results[0];
+      setIsData(data);
+      setIsShow(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
+  if (isShow) {
+    return (
+      <div>
+        <img src={loadingGif} alt="loading" />
+      </div>
+    );
+  }
+  console.log(isData);
+  const {
+    name: { title, first, last },
+    email,
+    registered: { age },
+    location: { country },
+    cell,
+    gender,
+    picture: { thumbnail },
+  } = isData;
+  console.log(gender);
+
+  const handleName = () => {};
+
   return (
     <main>
       <div className="block bcg-orange">
@@ -21,11 +74,15 @@ function App() {
       </div>
       <div className="block">
         <div className="container">
-          <img src={defaultImage} alt="random user" className="user-img" />
-          <p className="user-title">My ... is</p>
+          <img
+            src={isShow ? defaultImage : thumbnail}
+            alt="random user"
+            className="user-img"
+          />
+          <p className="user-title">My {title} is</p>
           <p className="user-value"></p>
           <div className="values-list">
-            <button className="icon" data-label="name">
+            <button className="icon" data-label="name" onClick={handleName}>
               <img src={womanSvg} alt="user" id="iconImg" />
             </button>
             <button className="icon" data-label="email">
@@ -63,7 +120,14 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              <tr className="body-tr"></tr>
+              <tr className="body-tr">
+                <td>
+                  {title} {first} {last}
+                </td>
+                <td>{email}</td>
+                <td>{cell}</td>
+                <td>{age}</td>
+              </tr>
             </tbody>
           </table>
         </div>
