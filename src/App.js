@@ -118,7 +118,8 @@ function App() {
     setUser([
       ...user,
       {
-        firstName: isData.name.title + isData.name.first + isData.name.last,
+        firstName:
+          isData.name.title + " " + isData.name.first + " " + isData.name.last,
         email: isData.email,
         age: isData.dob.age,
         phone: isData.phone,
@@ -141,36 +142,38 @@ function App() {
           {showName && (
             <div>
               <p className="user-title"> My name is </p>
-              <p className="user-value">{title + first + last}</p>
+              <p className="user-value">
+                {title}" "{first}" "{last}
+              </p>
             </div>
           )}
           {showEmail && (
             <div>
-              <p className="user-title">{showEmail && `My email is`}</p>
-              <p className="user-value">{showEmail && email}</p>
+              <p className="user-title">My email is</p>
+              <p className="user-value">{email}</p>
             </div>
           )}
           {showAge && (
             <div>
-              <p className="user-title"> My name is </p>
+              <p className="user-title"> My age is </p>
               <p className="user-value">{age}</p>
             </div>
           )}
           {showMap && (
             <div>
-              <p className="user-title"> My name is </p>
+              <p className="user-title"> My country is </p>
               <p className="user-value">{country}</p>
             </div>
           )}
           {showPhone && (
             <div>
-              <p className="user-title"> My name is </p>
+              <p className="user-title"> My phone is </p>
               <p className="user-value">{cell}</p>
             </div>
           )}
           {showPassword && (
             <div>
-              <p className="user-title"> My name is </p>
+              <p className="user-title"> My password is </p>
               <p className="user-value">{password}</p>
             </div>
           )}
