@@ -142,9 +142,7 @@ function App() {
           {showName && (
             <div>
               <p className="user-title"> My name is </p>
-              <p className="user-value">
-                {title}" "{first}" "{last}
-              </p>
+              <p className="user-value">{title + " " + first + " " + last}</p>
             </div>
           )}
           {showEmail && (
