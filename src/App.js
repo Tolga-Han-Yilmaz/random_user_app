@@ -25,14 +25,14 @@ function App() {
     age: "",
   });
   const [isShow, setIsShow] = useState(true);
+  const [user, setUser] = useState(users);
+
   const [showName, setShowName] = useState(false);
   const [showEmail, setShowEmail] = useState(false);
   const [showAge, setShowAge] = useState(false);
   const [showMap, setShowMap] = useState(false);
   const [showPhone, setShowPhone] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  const [user, setUser] = useState(users);
 
   const getData = async () => {
     try {
@@ -55,7 +55,7 @@ function App() {
       </div>
     );
   }
-  console.log(isData);
+
   const {
     name: { title, first, last },
     email,
@@ -63,7 +63,7 @@ function App() {
     location: { country },
     cell,
     login: { password },
-    picture: { large },
+    picture: { medium },
   } = isData;
 
   const handleName = () => {
@@ -135,7 +135,7 @@ function App() {
       <div className="block">
         <div className="container">
           <img
-            src={isShow ? defaultImage : large}
+            src={isShow ? defaultImage : medium}
             alt="random user"
             className="user-img"
           />
@@ -219,10 +219,10 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              {user.map((person) => {
+              {user.map((person, index) => {
                 const { firstName, email, age, phone } = person;
                 return (
-                  <tr className="body-tr">
+                  <tr className="body-tr" key={index}>
                     <td>{firstName}</td>
                     <td>{email}</td>
                     <td>{phone}</td>
